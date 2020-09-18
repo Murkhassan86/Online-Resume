@@ -1,0 +1,203 @@
+<nav class="navbar navbar-expand navbar-light g-primary d-flex justify-content-between">
+  <div class="navbar-brand mb-1 h1 text-white">Online resume Builder</div>
+</nav>
+
+<div class="container-fluid">
+  <form #resumeForm= "ngForm"> 
+    <div class="row">
+      <div class="col-md-8">
+        <div class="shadow-sm card">
+          <div class="card-body">
+            <h4 class="card-title d-flex align-items-center">
+              <i class="material-icons">
+              
+              </i>
+              Personel Details
+</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <input type="text" class="form-control" name="name" placeholder="Name" [(ngModel)]="resume.name">
+                </div>
+                <div class="form-group">
+                  <div class="form-group">
+                  <textarea class="form-control" placeholder="Address" name="address" rows="3" [(ngModel)]="resume.address"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <input type="number" class="form-control" placeholder="Contact Number" name="contactNo" [(ngModel)]="resume.contactNo">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter Email" name="email" [(ngModel)]="resume.email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Social profile" name="socialProfile" [(ngModel)]="resume.socialProfile">
+              </div>
+            </div>
+            </div>
+            </div>
+          </div>
+          
+          <div class="shadow-sm card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between card-title">
+                <h4 class="d-flex align-items-center">
+                  <i class="material-icons">
+                   
+                  </i>
+                  Skill
+                </h4>
+                <button class="btn btn-primary" (click)="addSkill()">+</button>
+              </div>
+              <div class="row">
+                <div class="col-md-4" *ngFor="let sk of resume.skills; let i = index">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="skill{{i}}" placeholder="eng Angular / Java / .net" [(ngModel)]="sk.value">
+                  </div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shadow-sm card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between card-title">
+                <h4 class="d-flex align-items-center">
+                  <i class="material-icons">
+                    
+                  </i>
+                  Experience
+                </h4>
+                <button class="btn btn-primary" (click)="addExperience()">+</button>
+              </div>
+              <div class="row" *ngFor="let ex of resume.experiences; let i = index">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="employer{{i}}" placeholder="Employer" [(ngModel)]="ex.employer">
+                  </div>
+                  <div class="form-group">
+                    <div class="form-group">
+                      <textarea class="form-control" rows="3" name="jobDescription{{i}}" placeholder="Job Description" [(ngModel)]="ex.jobDescription">
+
+                      </textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="jobTitle{{i}}" placeholder="Job title" [(ngModel)]="ex.jobTitle">
+                  </div>
+                  <div class="form-group">
+                    <input type="text" class="form-control" name="exInMonths{{i}}" placeholder="Experience in Months" [(ngModel)]="ex.exInMonths">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="shadow-sm card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between card-title">
+                <h4 class="d-flex align-items-center">
+                  <i class="material-icons">
+                    
+                  </i>
+                  Education
+                </h4>
+                <button class="btn btn-primary" (click)="addEducation()">+</button>
+              </div>
+              <div class="row" *ngFor="let ed of resume.educations; let i = index">
+                <div class="col-md-3">
+                  <div class="form-group">
+                  <select class="form-control" placeholder="Degree" name="degree{{i}}" [(ngModel)]="ed.degree">
+                    <option [value]="d" *ngFor="let d of Degrees">{{d}}</option>
+                  </select>
+                </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input type="text" class="form-control" placeholder="School/College" name="college{{i}}" [(ngModel)]="ed.college">
+
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Passing Year" name="year{{i}}" [(ngModel)]="ed.year">
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <input type="number" class="form-control" placeholder="Percetage %" name="percentage{{i}}" [(ngModel)]="ed.percentage">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="shadow-sm card">
+            <div class="card-body">
+              <h4 class="d-flex align-items-center">
+                <i class="material-icons">
+
+                </i>
+                Other Details
+              </h4>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <textarea class="form-control" name="Details" row="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="shadow-sm card action-buttons">
+            <button (click)="resumeForm.valid ? generatePdf('open') : ' ' " class="btn btn-primary d-flex align-items-center justify-content-center">
+              <i class="material-icons">
+               
+              </i><span>Open PDF</span>
+            </button>
+            <button (click)="resumeForm.valid ? generatePdf('download'): ' ' " class="btn btn-primary d-flex align-items-center justify-content-center">
+              <i class="material-icons">
+               
+              </i><span>Download PDF</span>
+            </button> 
+            <button (click)="resumeForm.valid ? generatePdf ('Print') : ' ' " class="btn btn-primary d-flex align-items-center justify-content-center">
+              <i class="material-icons">
+              </i><span>Print PDF</span>
+            </button>
+            <button type='reset' (click)="resetForm()" class="btn btn-primary d-flex align-items-center justify-content-center">
+              <i class="material-icons">
+
+              </i><span>Reset</span>
+            </button>
+          </div>
+          <div class="card p-4">
+            <div class="form-group">
+              <label class="h4 mb-3">Show your Picture in Resume</label>
+              <input type="file" class="form-control-file" (change)="fileChanged($event)">
+            </div>
+            <img *ngIf="resume.profilePic" [src]="resume.profilePic" class="img-thumbnail">
+          </div>
+        </div>
+      </div>
+   
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+<router-outlet></router-outlet>
